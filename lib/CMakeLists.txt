@@ -5,6 +5,6 @@ add_library(simpleLibrary
   Awards.cpp
 )
 
-find_library(M_LIB m)
-target_link_libraries(simpleLibrary ${M_LIB})
+TARGET_LINK_LIBRARIES(test gtest)
+TARGET_COMPILE_DEFINITIONS(test PRIVATE gtest_disable_pthreads=ON)
 
