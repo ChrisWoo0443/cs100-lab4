@@ -1,0 +1,15 @@
+CMakeCache.txt
+libgmock_main.a
+libgtest_main.a
+libgtest.a
+libsimpleLibrary.a
+libgmock.a
+CMakeFiles/
+bin/
+cmake_install.cmake
+lib/Makefile
+lib/cmake_install.cmake
+test/Makefile
+test/cmake_install.cmake
+
+
