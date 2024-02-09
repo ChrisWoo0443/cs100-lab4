@@ -6,7 +6,7 @@ using namespace testing;
 
 class RankListStub : public RankList {
 public:
-    RankListStub() : currentIndex(0) {}
+    RankListStub() : currentIndex(0) {} //make mock implementation
 
     std::string getNext() override {
         std::string returnValue;
