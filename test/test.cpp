@@ -1,53 +1,58 @@
 #include "gtest/gtest.h"
-#include "../include/Triangle.h"
-using shapes::Triangle;
+#include "../include/Awards.h"
+#include "gmock/gmock.h"
+using namespace awards;
+using namespace testing;
 
-// 4 Failures (added 1)
-TEST(TriangleTests, testPerimeterDifferentNumbers){
-    Triangle *aTriangle = new Triangle(5, 4, 3);
-    EXPECT_EQ (aTriangle->getPerimeter(),12);
+class RankListStub : public RankList {
+public:
+    RankListStub() : currentIndex(0) {}
+
+    std::string getNext() override {
+        std::string returnValue;
+
+        if (currentIndex >= listSize) {
+            currentIndex = 0;
+        }
+
+        returnValue = names[currentIndex];
+        ++currentIndex;
+        
+        return returnValue;
+    }
+
+private:
+    int currentIndex = 0;
+    std::string names[3] = {"Arya", "Ben", "Charlie"};
+    int listSize = 3;
+};
+
+class MockAwardCeremonyActions : public AwardCeremonyActions {
+    public:
+    MOCK_METHOD(void, playAnthem, (), (override));
+    MOCK_METHOD(void, turnOffTheLightsAndGoHome, (), (override));
+    MOCK_METHOD(void, awardBronze, (std::string recipient), (override));
+    MOCK_METHOD(void, awardSilver, (std::string recipient), (override));
+    MOCK_METHOD(void, awardGold, (std::string recipient), (override));
+    MOCK_METHOD(void, performAwardCeremony, ());
+};
+
+TEST(MockRankListTests, Test3Names) {
+    RankListStub mockRankList;
+    EXPECT_EQ(mockRankList.getNext(), "Arya");
+    EXPECT_EQ(mockRankList.getNext(), "Ben");
+    EXPECT_EQ(mockRankList.getNext(), "Charlie");
 }
 
-TEST(TriangleTests, testAreaEquilateral) {
-    Triangle *aTriangle = new Triangle(3,3,3);
-    EXPECT_DOUBLE_EQ (aTriangle->getArea(),4.5);
+TEST(AwardTests, CheckAwardFunctionOrder) {
+    RankListStub mockRankList;
+    MockAwardCeremonyActions mockAwardActions;
+
+    EXPECT_CALL(mockAwardActions, playAnthem());
+    EXPECT_CALL(mockAwardActions, awardBronze(_)); // _ is a placeholder that matches any value 
+    EXPECT_CALL(mockAwardActions, awardSilver(_)); 
+    EXPECT_CALL(mockAwardActions, awardGold(_)); 
+    EXPECT_CALL(mockAwardActions, turnOffTheLightsAndGoHome());
+
+    performAwardCeremony(mockRankList, mockAwardActions);
 }
-
-TEST(TriangleTests, testGetKindEquilateral) {
-    Triangle *aTriangle = new Triangle(3,3,3);
-    EXPECT_EQ (aTriangle->getKind(), Triangle::Kind::EQUILATERAL);
-}
-
-// 1 Expect Death (Success)
-TEST(TriangleTests, testFirstSideNotLongest) {
-    EXPECT_DEATH (Triangle *aTriangle = new Triangle(4,10,10);,"First side is not the longest");
-}
-
-// 4 Additional Passes
-
-// Already here, renamed but passed
-TEST(TriangleTests, testPerimeterEquilateral) {
-    Triangle *aTriangle = new Triangle(3,3,3);
-    EXPECT_EQ (aTriangle->getPerimeter(),9);
-}
-
-TEST(TriangleTests, testPerimeterIsosceles) {
-    Triangle *aTriangle = new Triangle(4,3,3);
-    EXPECT_EQ (aTriangle->getPerimeter(),10);
-}
-
-TEST(TriangleTests, testFirstSideLongerThanOthersCombined) {
-    EXPECT_DEATH (Triangle *aTriangle = new Triangle(10,4,2);,"Does not satisfy triangle inequality");
-}
-
-TEST(TriangleTests, testGetKindIsosceles) {
-    Triangle *aTriangle = new Triangle(4,3,3);
-    EXPECT_EQ (aTriangle->getKind(), Triangle::Kind::ISOSCELES);
-}
-
-TEST(TriangleTests, testGetKindScalene) {
-    Triangle *aTriangle = new Triangle(4,3,2);
-    EXPECT_EQ (aTriangle->getKind(), Triangle::Kind::SCALENE);
-}
-
-

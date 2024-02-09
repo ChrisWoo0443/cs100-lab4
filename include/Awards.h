@@ -1,4 +1,3 @@
-
 #ifndef AWARDS_H
 #define AWARDS_H
 
@@ -31,4 +30,3 @@ void performAwardCeremony(RankList& recipients, AwardCeremonyActions& actions);
 
 
 #endif
-
