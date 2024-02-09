@@ -49,9 +49,9 @@ TEST(AwardTests, CheckAwardFunctionOrder) {
     MockAwardCeremonyActions mockAwardActions;
 
     EXPECT_CALL(mockAwardActions, playAnthem());
-    EXPECT_CALL(mockAwardActions, awardBronze(_)); // _ is a placeholder that matches any value 
-    EXPECT_CALL(mockAwardActions, awardSilver(_)); 
-    EXPECT_CALL(mockAwardActions, awardGold(_)); 
+    EXPECT_CALL(mockAwardActions, awardBronze("Arya"));
+    EXPECT_CALL(mockAwardActions, awardSilver("Ben")); 
+    EXPECT_CALL(mockAwardActions, awardGold("Charlie")); 
     EXPECT_CALL(mockAwardActions, turnOffTheLightsAndGoHome());
 
     performAwardCeremony(mockRankList, mockAwardActions);
