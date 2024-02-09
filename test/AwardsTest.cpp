@@ -3,9 +3,14 @@
 #include "gmock/gmock.h"
 
 using namespace awards;
+using namespace std;
 
-class MockAwardCeremonyActions : public AwardCeremonyActions
-{
+class StubRankList : public RankList {
+    public:
+
+};
+
+class MockAwardCeremonyActions : public AwardCeremonyActions{
     public:
         MOCK_METHOD(void, playAnthem, (), (override));
         MOCK_METHOD(void, awardBronze, (string recipient), (override));
