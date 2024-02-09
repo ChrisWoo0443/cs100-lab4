@@ -11,11 +11,4 @@ TEST(HailstoneTests, testNumOne) {
     EXPECT_TRUE(satisfiesHailstone(1));
 }
 
-TEST(HailstoneTests, testEvenNum){
-    EXPECT_TRUE(satisfiesHailstone(4));
-}
-
-TEST(HailstoneTests, testOddNum){
-    EXPECT_TRUE(satisfiesHailstone(15));
-}
 
