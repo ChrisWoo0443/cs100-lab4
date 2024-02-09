@@ -16,5 +16,5 @@ TEST(HailstoneTests, testEvenNum) {
 }
 
 TEST(HailstoneTests, testOddNum) {
-    EXPECT_TRUE(satisfiesHailstone(16));
+    EXPECT_TRUE(satisfiesHailstone(15));
 }
