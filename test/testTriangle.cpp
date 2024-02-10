@@ -8,9 +8,9 @@ TEST(TriangleTests, testPerimeterDifferentNumbers){
     EXPECT_EQ (aTriangle->getPerimeter(),12);
 }
 
-TEST(TriangleTests, testAreaEquilateral) {
-    Triangle *aTriangle = new Triangle(3,3,3);
-    EXPECT_DOUBLE_EQ (aTriangle->getArea(),4.5);
+TEST(TriangleTests, testAreaRight) {
+    Triangle *aTriangle = new Triangle(5,4,3);
+    EXPECT_DOUBLE_EQ (aTriangle->getArea(),6);
 }
 
 TEST(TriangleTests, testGetKindEquilateral) {
